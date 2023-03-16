@@ -4,14 +4,15 @@ provider "aws" {
 
 resource "aws_vpc" "eks_vpc" {
   cidr_block = var.vpc_cidr
-   tags = {
+  tags = {
     Name = "eks_vpc"
   }
 }
 resource "aws_subnet" "eks_subnet_1" {
-  vpc_id     = aws_vpc.eks_vpc.id
-  cidr_block = var.subnet1_cidr
+  vpc_id            = aws_vpc.eks_vpc.id
+  cidr_block        = var.subnet1_cidr
   availability_zone = var.subnet_1_az
+  map_public_ip_on_launch = true
 
   tags = {
     Name = "eks_subnet_1"
@@ -19,9 +20,10 @@ resource "aws_subnet" "eks_subnet_1" {
 }
 
 resource "aws_subnet" "eks_subnet_2" {
-  vpc_id     = aws_vpc.eks_vpc.id
-  cidr_block = var.subnet2_cidr
+  vpc_id            = aws_vpc.eks_vpc.id
+  cidr_block        = var.subnet2_cidr
   availability_zone = var.subnet_2_az
+  map_public_ip_on_launch = true
 
   tags = {
     Name = "eks_subnet_2"
@@ -74,7 +76,7 @@ resource "aws_security_group" "allow_ssh" {
   }
 
   egress {
-    description = "Allow-all"
+    description      = "Allow-all"
     from_port        = 0
     to_port          = 0
     protocol         = "-1"
