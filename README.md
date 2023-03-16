@@ -11,7 +11,7 @@ Run AWS Configure
 
 aws sts get-caller-identity
 
-aws eks update-kubeconfig --region ap-south-1 --name example
+aws eks update-kubeconfig --region ap-south-1 --name dev
 
 kubectl get pods -A
 
