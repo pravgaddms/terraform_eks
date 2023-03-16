@@ -23,13 +23,13 @@ variable "subnet_2_az" {
 }
 
 variable "key" {
-    default = "prav"
+  default = "prav"
 }
 
 variable "instance_type" {
-    default = "t2.micro"
+  default = "t2.micro"
 }
 
 variable "os_name" {
-    default = "ami-09ba48996007c8b50"
+  default = "ami-09ba48996007c8b50"
 }
