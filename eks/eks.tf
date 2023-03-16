@@ -33,8 +33,8 @@ resource "aws_iam_role_policy_attachment" "AmazonEKSVPCResourceController" {
 }
 
 resource "aws_iam_role" "eks_worker" {
-    name = "eks_worker_role"
-    assume_role_policy = <<POLICY
+  name               = "eks_worker_role"
+  assume_role_policy = <<POLICY
     {
   "Version": "2012-10-17",
   "Statement": [
@@ -68,4 +68,51 @@ resource "aws_iam_role_policy_attachment" "AmazonSSMManagedInstanceCore" {
 resource "aws_iam_role_policy_attachment" "AmazonEC2ContainerRegistryReadOnly" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
   role       = aws_iam_role.eks_worker.name
+}
+
+resource "aws_iam_policy" "autoscaler" {
+  name   = "eks_autoscaler_policy"
+  policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Action": [
+        "autoscaling:DescribeAutoScalingGroups",
+        "autoscaling:DescribeAutoScalingInstances",
+        "autoscaling:DescribeTags",
+        "autoscaling:DescribeLaunchConfigurations",
+        "autoscaling:SetDesiredCapacity",
+        "autoscaling:TerminateInstanceInAutoScalingGroup",
+        "ec2:DescribeLaunchTemplateVersions"
+      ],
+      "Effect": "Allow",
+      "Resource": "*"
+    }
+  ]
+}
+EOF
+}
+
+resource "aws_iam_role_policy_attachment" "s3" {
+  policy_arn = "arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess"
+  role       = aws_iam_role.eks_worker.name
+}
+
+resource "aws_iam_role_policy_attachment" "autoscaler" {
+  policy_arn = aws_iam_policy.autoscaler.arn
+  role       = aws_iam_role.eks_worker.name
+}
+
+resource "aws_iam_role_policy_attachment" "x-ray" {
+  policy_arn = "arn:aws:iam::aws:policy/AWSXRayDaemonWriteAccess"
+  role       = aws_iam_role.eks_worker.name
+}
+
+resource "aws_iam_instance_profile" "eks_worker" {
+ name = "eks_worker_profile" 
+ role = aws_iam_role.eks_worker.name
+ depends_on = [
+   aws_iam_role.eks_worker
+ ]
 }
