@@ -1,0 +1,46 @@
+What is Terraform and how does it work?
+Terraform is an open-source infrastructure as code tool developed by HashiCorp. It enables users to define, provision, and manage infrastructure resources across various cloud and on-premises environments. Terraform works by using a declarative language to define resources and dependencies, and then creates and modifies these resources as necessary.
+
+What is the difference between Terraform and other configuration management tools?
+Terraform differs from other configuration management tools, such as Ansible or Chef, by focusing on infrastructure resources rather than software configuration. Terraform allows for a consistent, version-controlled way to manage infrastructure across multiple providers, and is particularly well-suited for managing cloud infrastructure resources.
+
+How do you declare variables in Terraform and how can they be used?
+Variables in Terraform can be declared using the variable block in a Terraform file. They can then be used throughout the configuration using the ${var.variable_name} syntax. Variables can be set at runtime using the -var flag or through environment variables.
+
+Can you explain the concept of a state file in Terraform and its importance?
+The state file in Terraform is a JSON file that contains the current state of the infrastructure being managed. It contains information on which resources are currently created and their current configuration. The state file is important because it enables Terraform to determine the current state of resources and make the necessary changes to bring the infrastructure into the desired state.
+
+How do you manage dependencies between resources in Terraform?
+Dependencies between resources can be managed in Terraform using the depends_on parameter or by using the terraform_remote_state data source to retrieve information from another Terraform state file.
+
+What is a Terraform module and why would you use one?
+A Terraform module is a reusable set of infrastructure resources that can be used across multiple projects. Modules can be used to encapsulate complex infrastructure configurations, making them easier to manage and reuse.
+
+How does Terraform handle secrets and sensitive information?
+Terraform has a number of ways to handle secrets and sensitive information, including the use of environment variables, the sensitive parameter for resources, and the use of third-party secrets management tools such as HashiCorp Vault.
+
+How do you manage multiple environments (e.g. dev, staging, prod) in Terraform?
+Multiple environments can be managed in Terraform using separate state files for each environment, and using variables to parameterize the configuration for each environment. Terraform workspaces can also be used to manage multiple environments within a single state file.
+
+Can you describe the difference between Terraform's "apply" and "plan" commands?
+The terraform plan command generates an execution plan that shows what changes Terraform will make to the infrastructure. The terraform apply command then applies those changes to the infrastructure.
+
+How can you test your Terraform code before applying it?
+Terraform code can be tested using the terraform validate command to check for syntax errors and the terraform plan command to preview the changes that would be made without actually applying them.
+
+Can you explain the Terraform provider concept and give an example?
+A Terraform provider is a plugin that enables Terraform to interact with a particular service or API. Providers are responsible for creating, updating, and deleting resources. An example of a Terraform provider is the AWS provider, which enables Terraform to manage resources on Amazon Web Services.
+
+How do you troubleshoot errors when running Terraform commands?
+Errors in Terraform can be debugged by examining the logs and error messages that are generated when running Terraform commands. The terraform state command
+
+Can you explain the use of Terraform workspaces and when you would use them?
+Terraform workspaces enable users to manage multiple instances of the same infrastructure resources in a single configuration. Workspaces are useful for managing multiple environments, such as development, staging, and production, within a single configuration file. Each workspace has its own state file, enabling users to make changes to one environment without affecting others.
+
+To create a new workspace, the terraform workspace new command can be used. To switch between workspaces, the terraform workspace select command can be used. By default, Terraform uses the default workspace, but users can create as many workspaces as necessary for their particular use case.
+
+What is the difference between Terraform's "null_resource" and "local_exec" resources?
+The null_resource and local_exec resources in Terraform are both used to execute arbitrary commands or scripts. The null_resource resource is used to define a resource that has no real effect on the infrastructure, while local_exec is used to execute a script locally on the machine running Terraform. null_resource can be used to define dependencies between resources, while local_exec is typically used to perform actions that can't be managed by Terraform resources.
+
+How do you integrate Terraform with other tools and services, such as Jenkins or AWS CodePipeline?
+Terraform can be integrated with other tools and services using plugins or extensions. For example, the Terraform Jenkins plugin can be used to trigger Terraform plans and apply commands as part of a Jenkins pipeline, while AWS CodePipeline can be used to automate the deployment of Terraform configurations on AWS. Additionally, Terraform modules can be published to registries such as the Terraform Registry, making them easily accessible to other users and teams.
