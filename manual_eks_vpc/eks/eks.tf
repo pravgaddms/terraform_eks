@@ -1,5 +1,5 @@
 resource "aws_eks_cluster" "eks" {
-  name     = "dev"
+  name     = var.group_name
   role_arn = aws_iam_role.eks_master.arn
   version  = "1.25"
 

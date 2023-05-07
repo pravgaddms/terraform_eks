@@ -5,7 +5,7 @@ resource "aws_instance" "eks_connect" {
   associate_public_ip_address = true
   subnet_id                   = aws_subnet.eks_subnet_1.id
   vpc_security_group_ids      = [aws_security_group.allow_ssh.id]
-      tags = {
+  tags = {
     Name = "eks_connect"
   }
 }
