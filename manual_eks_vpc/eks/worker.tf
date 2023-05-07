@@ -3,7 +3,7 @@ resource "aws_eks_node_group" "backend" {
   node_group_name = "dev"
   node_role_arn   = aws_iam_role.eks_worker.arn
   subnet_ids      = [var.subnet_ids[0], var.subnet_ids[1]]
-  capacity_type   = "ON_DEMAND"
+  capacity_type   = "SPOT"
   disk_size       = "20"
   instance_types  = [var.instance_type]
   remote_access {
